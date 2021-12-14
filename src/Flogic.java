@@ -21,37 +21,28 @@ public class Flogic {
         }
         return -1;
     }
-    public float getSlope(Pair<Float,Float> p1, Pair<Float,Float> p2){
-        return ((p2.second - p1.second) / (p2.first - p1.first));
-    }
 
-    public void fuzzification(){
+    public void fuzzification() {
         for (int i = 0; i < input.size(); i++) {
             for (int j = 0; j < input.get(i).fuzzySets.size(); j++) {
+                var fs = input.get(i).fuzzySets.get(j);
                 //check if crisp value in range of current fuzzy set
-                var exist= calRange(input.get(i).crisp,input.get(i).fuzzySets.get(j).getPoints());
-                if(exist==-1)
+                var exist = calRange(input.get(i).crisp, fs.getPoints());
+                if (exist == -1)
+                    //it doesn't relate to fuzzy set
                     input.get(i).membershipDegrees.add(0f);
                 else {
-
-                }
-            }
-
-        }
-        for (ProblemParameters inputVar : inputVars) {
-            for (FuzzySet fuzzySet : inputVar.getFuzzySets()) {
-                int firstIdx = getRange(inputVar.getCrispValue(), fuzzySet.getPoints());
-                if(firstIdx == -1)
-                    inputVar.getMembershipDegrees().add(0f);
-                else{
-                    Point p1 = fuzzySet.getPoints().get(firstIdx);
-                    Point p2 = fuzzySet.getPoints().get(firstIdx+1);
-                    if (p1.getX() == p2.getX())
-                        inputVar.getMembershipDegrees().add(1f);
+                    var p1 = fs.getPoints().get(exist);
+                    var p2 = fs.getPoints().get(exist + 1);
+                    if (p1.first == p2.first)
+                        input.get(i).membershipDegrees.add(1f);
                     else {
-                        float m = getSlope(p1, p2);
-                        float c = p1.getY() - (m * p1.getX());
-                        inputVar.getMembershipDegrees().add((m * inputVar.getCrispValue()) + c);
+                        //line equation
+                        //slope
+                        float slope = ((p2.second - p1.second) / (p2.first - p1.first));
+                        //c
+                        float yintersect = p1.second - (slope * p1.first);
+                        input.get(i).membershipDegrees.add(slope * input.get(i).crisp + yintersect);
                     }
                 }
             }
