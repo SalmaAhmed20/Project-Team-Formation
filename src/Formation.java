@@ -80,10 +80,13 @@ public class Formation {
         _flogic.input.get(0).crisp = 50;
         _flogic.input.get(1).crisp = 40;
 
+        System.out.println("Fuzzification input: ");
         _flogic.fuzzification();
+        System.out.println("Inference: ");
         _flogic.inference();
+        System.out.println("Defuzzification: ");
         for (int i = 0; i < _flogic.output.get(0).membershipDegrees.size(); i++) {
-            System.out.println(i + ")" + _flogic.output.get(0).fuzzySets.get(i).getName() + " " + _flogic.output.get(0).membershipDegrees.get(i));
+            System.out.println((i+1) + ") risk " + _flogic.output.get(0).fuzzySets.get(i).getName() + " " + _flogic.output.get(0).membershipDegrees.get(i));
         }
         //defuzzification
         for (int i = 0; i < _flogic.output.get(0).fuzzySets.size(); i++) {
@@ -97,9 +100,9 @@ public class Formation {
         }
         var crispvalue = nemo / demo;
         System.out.println("Predicted Value (Risk)= " + crispvalue);
+
         float max = Collections.max(_flogic.output.get(0).membershipDegrees);
         System.out.println("Risk will be " + _flogic.output.get(0).fuzzySets.get(_flogic.output.get(0).membershipDegrees.indexOf(max)).getName());
-
 
     }
 }
