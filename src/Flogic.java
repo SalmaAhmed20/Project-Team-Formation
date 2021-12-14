@@ -34,7 +34,7 @@ public class Flogic {
                 else {
                     var p1 = fs.getPoints().get(exist);
                     var p2 = fs.getPoints().get(exist + 1);
-                    if (p1.first == p2.first)
+                    if (p1.first.equals(p2.first))
                         input.get(i).membershipDegrees.add(1f);
                     else {
                         //line equation
