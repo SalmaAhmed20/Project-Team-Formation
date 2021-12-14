@@ -28,7 +28,13 @@ public class Flogic {
     public void fuzzification(){
         for (int i = 0; i < input.size(); i++) {
             for (int j = 0; j < input.get(i).fuzzySets.size(); j++) {
-                //check if crisp value in range
+                //check if crisp value in range of current fuzzy set
+                var exist= calRange(input.get(i).crisp,input.get(i).fuzzySets.get(j).getPoints());
+                if(exist==-1)
+                    input.get(i).membershipDegrees.add(0f);
+                else {
+
+                }
             }
 
         }

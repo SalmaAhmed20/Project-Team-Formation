@@ -27,4 +27,8 @@ public class FuzzySet {
         for (int i = 0; i < Xs.size(); i++)
             points.add(new Pair(Xs.get(i), Ys.get(i)));
     }
+
+    public ArrayList<Pair<Float, Float>> getPoints() {
+        return points;
+    }
 }
