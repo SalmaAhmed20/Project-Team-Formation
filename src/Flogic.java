@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+
 public class Flogic {
     ArrayList<ProblemParameters> input = new ArrayList<>();
     ArrayList<ProblemParameters> output = new ArrayList<>();
@@ -16,25 +17,29 @@ public class Flogic {
     // if 50 between start and end of very low f set we will calc degree else =0
     public int calRange(float crisp, ArrayList<Pair<Float, Float>> points) {
         for (int i = 0; i < points.size() - 1; i++) {
-            if ((crisp >= points.get(i).first) && (crisp <= points.get(i + 1).second))
+            if ((crisp >= points.get(i).first) && (crisp <= points.get(i + 1).second)) {
                 return i;
+            }
         }
         return -1;
     }
 
     public void fuzzification() {
         for (int i = 0; i < input.size(); i++) {
+            System.out.println(input.get(i).Name);
             for (int j = 0; j < input.get(i).fuzzySets.size(); j++) {
                 var fs = input.get(i).fuzzySets.get(j);
+                System.out.print(fs.getName() + " ");
                 //check if crisp value in range of current fuzzy set
                 var exist = calRange(input.get(i).crisp, fs.getPoints());
+                System.out.println();
                 if (exist == -1)
                     //it doesn't relate to fuzzy set
                     input.get(i).membershipDegrees.add(0f);
                 else {
                     var p1 = fs.getPoints().get(exist);
                     var p2 = fs.getPoints().get(exist + 1);
-                    if (p1.first.equals(p2.first))
+                    if (p1.first==(p2.first))
                         input.get(i).membershipDegrees.add(1f);
                     else {
                         //line equation
@@ -45,10 +50,13 @@ public class Flogic {
                         input.get(i).membershipDegrees.add(slope * input.get(i).crisp + yintersect);
                     }
                 }
+                System.out.println(input.get(i).membershipDegrees.get(j));
             }
+            System.out.println();
         }
     }
-    public void inference(){
+
+    public void inference() {
         //-----rule1-----
         //project_funding is high or team_experience_level is expert then risk is low.
         ArrayList<Float> values1 = new ArrayList<>();
@@ -73,7 +81,7 @@ public class Flogic {
         //-----rule3-rule4-----
         //project_funding is very low then risk is high
         //project_funding is low and team_experience_level is beginner then risk is high.
-        values_2 .add(input.get(0).membershipDegrees.get(0));
+        values_2.add(input.get(0).membershipDegrees.get(0));
         values1.add(input.get(0).membershipDegrees.get(1));
         values1.add(input.get(1).membershipDegrees.get(0));
         values_2.add(Collections.min(values1));
@@ -84,11 +92,12 @@ public class Flogic {
 
 
     }
-    public float CalculateCentroids(ArrayList<Pair<Float, Float>> points){
-        float Sum=0;
-        for(int i=0;i<points.size();i++)
+
+    public float CalculateCentroids(ArrayList<Pair<Float, Float>> points) {
+        float Sum = 0;
+        for (int i = 0; i < points.size(); i++)
             Sum += points.get(i).first;
 
-        return Sum/points.size();
+        return Sum / points.size();
     }
 }

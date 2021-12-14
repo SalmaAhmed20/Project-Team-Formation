@@ -31,4 +31,8 @@ public class FuzzySet {
     public ArrayList<Pair<Float, Float>> getPoints() {
         return points;
     }
+
+    public String getName() {
+        return name;
+    }
 }
