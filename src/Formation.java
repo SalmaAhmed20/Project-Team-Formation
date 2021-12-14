@@ -57,6 +57,10 @@ public class Formation {
         _flogic.input.get(1).crisp=40;
 
         _flogic.fuzzification();
+        _flogic.inference();
+        for (int i = 0; i < _flogic.output.get(0).membershipDegrees.size(); i++) {
+            System.out.println(i+")"+_flogic.output.get(0).fuzzySets.get(i).getName()+" "+_flogic.output.get(0).membershipDegrees.get(i));
+        }
 
     }
 }
