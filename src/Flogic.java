@@ -84,4 +84,11 @@ public class Flogic {
 
 
     }
+    public float CalculateCentroids(ArrayList<Pair<Float, Float>> points){
+        float Sum=0;
+        for(int i=0;i<points.size();i++)
+            Sum += points.get(i).first;
+
+        return Sum/points.size();
+    }
 }
