@@ -17,7 +17,7 @@ public class Flogic {
     // if 50 between start and end of very low f set we will calc degree else =0
     public int calRange(float crisp, ArrayList<Pair<Float, Float>> points) {
         for (int k = 0; k < points.size(); k++) {
-            System.out.print("("+points.get(k).first+","+points.get(k).second+")");
+            System.out.print("(" + points.get(k).first + "," + points.get(k).second + ")");
 
         }
         for (int i = 0; i < points.size() - 1; i++) {
@@ -53,7 +53,7 @@ public class Flogic {
                         input.get(i).membershipDegrees.add(slope * input.get(i).crisp + yintersect);
                     }
                 }
-                System.out.println(" "+input.get(i).membershipDegrees.get(j));
+                System.out.println(" " + input.get(i).membershipDegrees.get(j));
             }
             System.out.println();
         }
@@ -96,11 +96,5 @@ public class Flogic {
 
     }
 
-    public float CalculateCentroids(ArrayList<Pair<Float, Float>> points) {
-        float Sum = 0;
-        for (int i = 0; i < points.size(); i++)
-            Sum += points.get(i).first;
 
-        return Sum / points.size();
-    }
 }

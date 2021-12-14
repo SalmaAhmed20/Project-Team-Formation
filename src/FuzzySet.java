@@ -4,10 +4,10 @@ public class FuzzySet {
     //used for assigned ranges
     //i.e.) very low,low ...
     private final String name;
-    //used in defuzzfication
-    private float centroid;
     //Points x and assign 1 from shape
     private final ArrayList<Pair<Float, Float>> points = new ArrayList<>();
+    //used in defuzzfication
+    private float centroid;
 
     FuzzySet(String name, ArrayList<Float> Xs) {
         this.name = name;
@@ -34,5 +34,17 @@ public class FuzzySet {
 
     public String getName() {
         return name;
+    }
+
+    public void CalculateCentroids() {
+        float Sum = 0;
+        for (int i = 0; i < points.size(); i++)
+            Sum += points.get(i).first;
+        this.centroid = Sum / points.size();
+//        return Sum / points.size();
+    }
+
+    public float getCentroid() {
+        return centroid;
     }
 }
