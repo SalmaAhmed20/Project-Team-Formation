@@ -7,6 +7,4 @@ public class ProblemParameters {
      ArrayList <Float> membershipDegrees=new ArrayList<>();
 
      ProblemParameters(String name){this.Name=name;}
-
-
 }

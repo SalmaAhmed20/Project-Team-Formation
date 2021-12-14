@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-
+import java.util.Collections;
 public class Flogic {
     ArrayList<ProblemParameters> input = new ArrayList<>();
     ArrayList<ProblemParameters> output = new ArrayList<>();
@@ -47,5 +47,41 @@ public class Flogic {
                 }
             }
         }
+    }
+    public void inference(){
+        //-----rule1-----
+        //project_funding is high or team_experience_level is expert then risk is low.
+        ArrayList<Float> values1 = new ArrayList<>();
+        ArrayList<Float> values_2 = new ArrayList<>();
+        float rule;
+        values1.add(input.get(0).membershipDegrees.get(3));
+        values1.add(input.get(1).membershipDegrees.get(2));
+        rule = Collections.max(values1);
+        output.get(0).membershipDegrees.add(rule);
+        values1.clear();
+        //-----rule2-----
+        //project_funding is medium and team_experience_level is intermediate
+        // or team_experience_level is beginner then risk is normal.
+        values1.add(input.get(0).membershipDegrees.get(2));
+        values1.add(input.get(1).membershipDegrees.get(1));
+        values_2.add(Collections.min(values1));
+        values_2.add(input.get(1).membershipDegrees.get(0));
+        rule = Collections.max(values_2);
+        output.get(0).membershipDegrees.add(rule);
+        values1.clear();
+        values_2.clear();
+        //-----rule3-rule4-----
+        //project_funding is very low then risk is high
+        //project_funding is low and team_experience_level is beginner then risk is high.
+        values_2 .add(input.get(0).membershipDegrees.get(0));
+        values1.add(input.get(0).membershipDegrees.get(1));
+        values1.add(input.get(1).membershipDegrees.get(0));
+        values_2.add(Collections.min(values1));
+        rule = Collections.max(values_2);
+        output.get(0).membershipDegrees.add(rule);
+        values1.clear();
+        values_2.clear();
+
+
     }
 }
