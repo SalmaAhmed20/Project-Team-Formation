@@ -16,8 +16,12 @@ public class Flogic {
     //help in calc membership degree
     // if 50 between start and end of very low f set we will calc degree else =0
     public int calRange(float crisp, ArrayList<Pair<Float, Float>> points) {
+        for (int k = 0; k < points.size(); k++) {
+            System.out.print("("+points.get(k).first+","+points.get(k).second+")");
+
+        }
         for (int i = 0; i < points.size() - 1; i++) {
-            if ((crisp >= points.get(i).first) && (crisp <= points.get(i + 1).second)) {
+            if ((crisp >= points.get(i).first) && (crisp <= points.get(i + 1).first)) {
                 return i;
             }
         }
@@ -32,14 +36,13 @@ public class Flogic {
                 System.out.print(fs.getName() + " ");
                 //check if crisp value in range of current fuzzy set
                 var exist = calRange(input.get(i).crisp, fs.getPoints());
-                System.out.println();
                 if (exist == -1)
                     //it doesn't relate to fuzzy set
                     input.get(i).membershipDegrees.add(0f);
                 else {
                     var p1 = fs.getPoints().get(exist);
                     var p2 = fs.getPoints().get(exist + 1);
-                    if (p1.first==(p2.first))
+                    if (p1.first.equals(p2.first))
                         input.get(i).membershipDegrees.add(1f);
                     else {
                         //line equation
@@ -50,7 +53,7 @@ public class Flogic {
                         input.get(i).membershipDegrees.add(slope * input.get(i).crisp + yintersect);
                     }
                 }
-                System.out.println(input.get(i).membershipDegrees.get(j));
+                System.out.println(" "+input.get(i).membershipDegrees.get(j));
             }
             System.out.println();
         }
