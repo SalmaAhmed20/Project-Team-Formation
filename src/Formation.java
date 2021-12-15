@@ -100,9 +100,15 @@ public class Formation {
         }
         var crispvalue = nemo / demo;
         System.out.println("Predicted Value (Risk)= " + crispvalue);
-
-        float max = Collections.max(_flogic.output.get(0).membershipDegrees);
-        System.out.println("Risk will be " + _flogic.output.get(0).fuzzySets.get(_flogic.output.get(0).membershipDegrees.indexOf(max)).getName());
+        Flogic _f2=new Flogic();
+        _f2.addParameter("Risk",true);
+        _f2.input.get(0).fuzzySets.add(new FuzzySet("low",risklow));
+        _f2.input.get(0).fuzzySets.add(new FuzzySet("normal",risknormal));
+        _f2.input.get(0).fuzzySets.add(new FuzzySet("high",riskhigh));
+        _f2.input.get(0).crisp=crispvalue;
+        _f2.fuzzification();
+        float max = Collections.max(_f2.input.get(0).membershipDegrees);
+        System.out.println("Risk will be " + _f2.input.get(0).fuzzySets.get(_f2.input.get(0).membershipDegrees.indexOf(max)).getName());
 
     }
 }
